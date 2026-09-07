@@ -1,0 +1,42 @@
+name: 'CinderCache Warm on Deploy'
+description: 'Warm your CDN edge cache on every deploy and verify it per PoP.'
+author: 'CinderCache'
+branding:
+  icon: 'zap'
+  color: 'orange'
+inputs:
+  token:
+    description: 'CinderCache deploy-webhook token (cc_hook_...). Store it as a repository secret.'
+    required: true
+  api-base:
+    description: 'CinderCache API base URL. Must use https, since the token travels as a Bearer header.'
+    required: false
+    default: 'https://api.cindercache.com'
+  urls:
+    description: 'Optional newline- or space-separated URLs to warm. Each host must be this webhook''s verified domain. Defaults to the domain''s standing sets and API targets.'
+    required: false
+    default: ''
+  locations:
+    description: 'Optional comma-separated locations to warm. Defaults to the warmed sets'' regions, then the service default.'
+    required: false
+    default: ''
+  wait:
+    description: 'Wait for the warm to complete and read the proof (true/false).'
+    required: false
+    default: 'true'
+  fail-on:
+    description: 'Comma-separated result outcomes that fail the build (matches served results only). A job that fails overall fails regardless; uncovered cells and inconclusive results warn.'
+    required: false
+    default: 'blocked,failed'
+  timeout-seconds:
+    description: 'Maximum seconds to wait for the warm to complete.'
+    required: false
+    default: '120'
+outputs:
+  job-id:
+    description: 'The warm job id.'
+  status:
+    description: 'The final job status. Set only when wait is true.'
+runs:
+  using: 'node24'
+  main: 'index.js'

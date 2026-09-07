@@ -1,0 +1,9 @@
+# This action has no dependencies and no build step. Everything below is contributor hygiene only.
+node_modules/
+npm-debug.log*
+
+# Editor and OS noise
+.DS_Store
+.idea/
+.vscode/
+*.swp

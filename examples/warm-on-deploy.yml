@@ -1,0 +1,26 @@
+# Example: warm and verify the CDN edge cache after a production deploy.
+# Copy into .github/workflows/ in your repository and adjust the deploy job to your setup.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ... your build and deploy steps ...
+
+      - name: Warm CinderCache and verify per PoP
+        uses: cindercache/warm-on-deploy@v1
+        with:
+          token: ${{ secrets.CINDERCACHE_TOKEN }}
+          # Optional: warm specific URLs instead of the standing sets.
+          # urls: |
+          #   https://www.example.com/
+          #   https://www.example.com/pricing
+          # Optional: restrict to specific locations.
+          # locations: EWR,ORD
