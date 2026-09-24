@@ -2,7 +2,7 @@
 
 Warm your CDN edge cache on every deploy and verify it per PoP, directly from your GitHub workflow. This action triggers a CinderCache warm through your account's deploy webhook, waits for it to finish, prints a per-cell proof table, and passes or fails the job by outcome.
 
-CinderCache: https://cindercache.com
+Documentation: https://cindercache.com/docs/
 
 ## Quick start
 
