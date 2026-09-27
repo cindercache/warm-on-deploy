@@ -13,7 +13,7 @@ inputs:
     required: false
     default: 'https://api.cindercache.com'
   urls:
-    description: 'Optional newline- or space-separated URLs to warm. Each host must be this webhook''s verified domain. Defaults to the domain''s standing sets and API targets.'
+    description: 'Optional newline- or space-separated URLs to warm. Each host must be this webhook''s verified domain. Defaults to the domain''s standing sets that have the deploy-webhook trigger, plus its API targets.'
     required: false
     default: ''
   locations:
@@ -25,7 +25,7 @@ inputs:
     required: false
     default: 'true'
   fail-on:
-    description: 'Comma-separated result outcomes that fail the build (matches served results only). A job that fails overall fails regardless; uncovered cells and inconclusive results warn.'
+    description: 'Comma-separated result outcomes that fail the build (matches served results only). A job that fails overall fails regardless. Uncovered cells and inconclusive results warn.'
     required: false
     default: 'blocked,failed'
   timeout-seconds:

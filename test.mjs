@@ -321,7 +321,7 @@ test('wait:false -> exits 0 without polling, sets job-id and not status', async 
   const { code, out, outputs } = await run(`http://127.0.0.1:${srv.address().port}`, { INPUT_WAIT: 'false' });
   srv.close();
   assert.strictEqual(code, 0, out);
-  assert.match(out, /not polling for proof/);
+  assert.match(out, /the proof is not polled/);
   assert.deepStrictEqual(parseOutputs(outputs), ['job-id'], `expected job-id only, got:\n${outputs}`);
 });
 

@@ -9,7 +9,7 @@ Include what you need to describe the problem, which is usually the version or t
 behavior you observed, and the steps that produce it. A proof of concept helps but is not required.
 
 We aim to acknowledge your report within a few business days and to tell you whether we consider it in
-scope. If a fix is warranted we will release it under a new tag and move the `v1` tag forward.
+scope. If a fix is warranted, we will release it under a new tag and move the `v1` tag forward.
 
 ## Scope
 

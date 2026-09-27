@@ -100,7 +100,7 @@ async function main() {
   // The shape check is part of the same guard: ::add-mask:: is itself a workflow command, so a token
   // containing a newline would terminate the command early and print its own tail in clear.
   if (!/^[A-Za-z0-9_]+$/.test(token)) {
-    fail('the token is not in the expected format (letters, digits and underscores only).');
+    fail('the token is not in the expected format (letters, digits, and underscores only).');
     process.exit(1);
   }
   console.log(`::add-mask::${token}`);
@@ -166,7 +166,7 @@ async function main() {
     // before the connection broke; that path would need an Idempotency-Key to stay idempotent.
     // This is why the catch above fails rather than retrying.
     if (Date.now() >= triggerDeadline) {
-      fail(`the warm could not be triggered: still rate limited after ${Math.min(timeoutSec, 30)}s.`);
+      fail(`the warm could not be triggered, because it was still rate limited after ${Math.min(timeoutSec, 30)}s.`);
       process.exit(1);
     }
     await sleep(retryAfterMs(res, triggerDeadline));
@@ -175,7 +175,7 @@ async function main() {
     // Names BOTH causes deliberately. api-base is customer-settable, so a wrong base URL reaches a
     // valid host with no such route and 404s exactly like an unknown token. Blaming only the secret
     // sent the customer digging through their credentials over what was a typo in a URL.
-    fail(`the warm endpoint returned 404: either the deploy token was not recognized, or api-base is wrong (using ${apiBase}).`);
+    fail(`the warm endpoint returned 404, which means either the deploy token was not recognized or api-base is wrong (using ${apiBase}).`);
     process.exit(1);
   }
   if (res.status !== 202) {
@@ -201,7 +201,7 @@ async function main() {
   setOutput('job-id', jobId);
   notice(`CinderCache warm triggered: job ${jobId}`);
   if (!wait) {
-    console.log('wait is false; not polling for proof.');
+    console.log('wait is false, so the proof is not polled.');
     process.exit(0);
   }
 
@@ -273,7 +273,7 @@ async function main() {
   // reporting rolls up to 'failed' with NO result rows, which the per-result check below
   // cannot see. A 'partial' job is left to the per-result and coverage-gap handling.
   if (job.status === 'failed') {
-    fail('the warm job failed (status: failed); no location was proven warm.');
+    fail('the warm job failed (status: failed), and no location was proven warm.');
     process.exit(1);
   }
   // The control plane sends the coverage summary and one row per requested cell, both derived
@@ -304,7 +304,7 @@ async function main() {
   console.log('');
   if (summary.proven) notice(`proven warm at ${summary.proven} of ${summary.total} cell(s).`);
   for (const r of results.filter((r) => lc(r) === 'inconclusive')) {
-    warn(`inconclusive at ${r.location} (could not classify; not a failure).`);
+    warn(`inconclusive at ${r.location} (could not classify, so not a failure).`);
   }
   // Collapse to distinct locations: a multi-URL job produces one unserved cell per URL, and
   // repeating the same location once per URL would read as several separate outages.
@@ -318,7 +318,7 @@ async function main() {
     process.exit(1);
   }
   if (summary.proven) notice('CinderCache: warm verified.');
-  else warn('CinderCache: nothing was proven warm (coverage gaps or inconclusive); not failing the build.');
+  else warn('CinderCache: nothing was proven warm (coverage gaps or inconclusive), so the build does not fail.');
   process.exit(0);
 }
 
